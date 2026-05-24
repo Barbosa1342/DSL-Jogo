@@ -10,3 +10,6 @@ class Estado:
 
     def resetar_estado(self):
         self.estado = "Levantado"
+
+    def copiar_estado(self, estado_origem):
+        self.estado = estado_origem.estado

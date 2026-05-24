@@ -26,6 +26,9 @@ class entrada_modo_comando(I_entrada_modo):
     
     def ler_entrada(self):
         comando = input("Digite um comando (ou 'sair' para encerrar): ")
-        if comando.lower() == 'sair':
-            return
+        
+        if comando.strip().lower() in ("sair", "exit", "quit"):
+            print("Encerrando o jogo.")
+            return None
+        
         return comando

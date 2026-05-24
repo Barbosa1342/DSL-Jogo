@@ -1,11 +1,11 @@
-from Modelo.ItemAcao import ItemAcao
+from Codigo.Planejamento.AcaoPlanejada import acao_planejada
 
-class GerenciadorAcoes:
+class gerenciador_acoes:
     def __init__(self):
         self.acoes = []
     
     def adicionar_acao(self, tipo, acao, adicional):
-        nova_acao = ItemAcao(tipo, acao, adicional)
+        nova_acao = acao_planejada(tipo, acao, adicional)
         self.acoes.append(nova_acao)
 
     def adicionar_acao(self, acao):

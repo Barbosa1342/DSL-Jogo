@@ -1,6 +1,8 @@
 from ply.lex import lex
 from ply.yacc import yacc
 
+# TODO Adicionar Movimento "Virar" para esquerda e direita
+
 '''
 S ::= "Jogador" <Ação>
 <Ação> ::=  <movimento> “e” <Ação> | <interacao> “e” <Ação> | <movimento> | <interacao>
