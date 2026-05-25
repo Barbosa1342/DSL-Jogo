@@ -1,8 +1,6 @@
 from ply.lex import lex
 from ply.yacc import yacc
 
-# TODO Adicionar Movimento "Virar" para esquerda e direita
-
 '''
 S ::= "Jogador" <Ação>
 <Ação> ::=  <movimento> “e” <Ação> | <interacao> “e” <Ação> | <movimento> | <interacao>
@@ -21,6 +19,8 @@ tokens = (
     "CMD_PULAR",
     "CMD_AGACHAR",
     "CMD_LEVANTAR",
+
+    "CMD_VIRAR",
 
     "CMD_USAR",
     "CMD_COLETAR",
@@ -41,6 +41,7 @@ t_CMD_ANDAR = r"\banda\b"
 t_CMD_PULAR = r"\bpula\b"
 t_CMD_AGACHAR = r"\bagacha\b"
 t_CMD_LEVANTAR = r"\blevanta\b"
+t_CMD_VIRAR = r"\bvira\b"
 
 t_CMD_USAR = r"\busa\b"
 t_CMD_COLETAR = r"\bcoleta\b"
@@ -98,6 +99,7 @@ def p_movimento(p):
               | CMD_PULAR INTENSIDADE
               | CMD_AGACHAR
               | CMD_LEVANTAR
+              | CMD_VIRAR
     '''
 
     if (len(p) == 3):

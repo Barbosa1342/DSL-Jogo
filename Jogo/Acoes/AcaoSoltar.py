@@ -8,6 +8,10 @@ class acao_soltar(I_acao):
 
     def iniciar(self, executor):
         executor.jogador.estado.atualizar_estado("Soltando")
+        item = executor.jogador.inventario.obter_item(self.num_slot)
+        item.coletada = False
+        item.x = executor.jogador.x
+        item.y = executor.jogador.y
         executor.jogador.inventario.remover_item(self.num_slot)
 
     def atualizar(self, executor):

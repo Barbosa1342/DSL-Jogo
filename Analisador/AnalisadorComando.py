@@ -1,24 +1,27 @@
+from Codigo.Analisador.AnalisadorSintatico import analisador_sintatico
+from Codigo.Analisador.AnalisadorSemantico import analisador_semantico
 class analisador_comando():
-    def __init__(self, analisador_sintatico, analisador_semantico):
-        self.analisador_sintatico = analisador_sintatico
-        self.analisador_semantico = analisador_semantico
+    def __init__(self, gerenciador_itens):
+        self.analisador_sintatico = analisador_sintatico()
+        self.analisador_semantico = analisador_semantico(gerenciador_itens)
         
-    def analisar(self, comando):
-        try:
-            ast = self.analisador_sintatico.analisar(comando)
+    def analisar(self, comando, jogador):
+        ast = self.analisador_sintatico.analisar(comando)
 
-            if isinstance(ast, Exception):
-                print(f"Erro sintatico no comando '{comando}': {ast}")
-                raise Exception(f"Erro sintatico no comando '{comando}': {ast}")
+        if isinstance(ast, Exception):
+            print(f"Erro sintatico ao analisar o comando: '{comando}'")
+            return False
 
-            is_valido = self.analisador_semantico.analisar(ast)
+        self.analisador_semantico.preparar_planejamento(jogador)
 
-            if isinstance(is_valido, Exception):
-                print(f"Erro semantico no comando '{comando}': {is_valido}")
-                raise Exception(f"Erro semantico no comando '{comando}': {is_valido}")
+        ast_valida = self.analisador_semantico.analisar_parcial_valido(ast)
 
-            print("Comando analisado com sucesso!")
-            return ast           
-        except Exception as e:
-            print(f"{str(e)}")
-            return None
+        if isinstance(ast_valida, Exception):
+            print(f"Erro semantico ao analisar o comando: '{comando}'")
+            return False
+
+        if len(ast_valida["acao"]) == 0:
+            print("Nenhuma acao valida para executar.")
+            return False
+
+        return ast_valida

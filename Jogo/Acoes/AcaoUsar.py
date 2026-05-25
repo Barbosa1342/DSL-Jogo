@@ -5,10 +5,15 @@ class acao_usar(I_acao):
         self.frames = 0
         self.duracao = 30
         self.num_slot = num_slot
+        self.item = None
         
     def iniciar(self, executor):
         executor.jogador.estado.atualizar_estado("Usando")
-        print(f"Usando item {executor.jogador.inventario.obter_item(self.num_slot)}")
+        self.item = executor.jogador.inventario.obter_item(self.num_slot)
+        self.item.coletada = False
+        self.item.x = executor.jogador.x
+        self.item.y = executor.jogador.y
+        print(f"Usando item {self.item.nome}")
 
     def atualizar(self, executor):
         self.frames += 1
@@ -20,4 +25,5 @@ class acao_usar(I_acao):
         return False
 
     def finalizar(self, executor):
+        self.item.coletada = True
         executor.jogador.estado.atualizar_estado("Levantado")

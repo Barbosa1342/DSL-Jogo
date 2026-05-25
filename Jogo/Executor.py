@@ -22,6 +22,7 @@ class Executor:
             return False
 
         self.jogador.x += self.jogador.vel_x
+        self.jogador.limitar_posicao_horizontal()
         self.jogador.y += self.jogador.vel_y
 
         terminou = self.acao_atual.atualizar(self)

@@ -2,7 +2,7 @@ from Codigo.Jogo.Acoes.IAcao import I_acao
 
 class acao_levantar(I_acao):
     def __init__(self):
-        self.duracao = 10
+        self.duracao = 30
         self.frames = 0
 
     def iniciar(self, executor):

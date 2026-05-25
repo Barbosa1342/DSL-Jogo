@@ -1,6 +1,8 @@
 import os
 import sys
 
+import pygame
+
 CODIGO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJETO_DIR = os.path.dirname(CODIGO_DIR)
 JOGO_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -15,178 +17,134 @@ if JOGO_DIR not in sys.path:
     sys.path.append(JOGO_DIR)
 
 from Codigo.Entrada.GerenciadorModo import gerenciador_modo
-from Codigo.Entrada.IEntradaModo import entrada_modo_arquivo, entrada_modo_comando
+from Codigo.Entrada.IEntradaModo import entrada_modo_arquivo, entrada_modo_pygame
 from Codigo.Utilidade.entradaSaidaParser import JsonOutputParser, JsonResetFile, TextoInputParser
 
-from Analisador.AnalisadorSintatico import analisador_sintatico
-from Analisador.AnalisadorSemantico import analisador_semantico
-from Analisador.ValidadorMovimento import validador_movimento
-from Analisador.ValidadorInteracao import validador_interacao
-
 from Codigo.Jogo.Estado import Estado
+from Codigo.Jogo.Executor import Executor
 from Codigo.Jogo.Inventario import Inventario
+from Codigo.Jogo.Jogador import Jogador
+from Codigo.Jogo.Acoes.ProcessadorComando import processador_comando
+from Codigo.Jogo.Renderizacao.RenderizadorJogo import renderizador_jogo
+from Codigo.Items.GerenciadorItens import gerenciador_itens
+from Codigo.Items.Item import Item
 
-from Planejamento.GerenciadorAcoes import gerenciador_acoes
-from Planejamento.PlanejadorAcao import planejador_acao
+class jogo:
+    def __init__(self, entrada):
+        self.entrada = entrada
+        self.fps = 60
+        self.rodando = True
 
-from Executor import Executor
-from Jogador import Jogador
-from Acoes.AcaoAgachar import acao_agachar
-from Acoes.AcaoAndar import acao_andar
-from Acoes.AcaoColetar import acao_coletar
-from Acoes.AcaoLevantar import acao_levantar
-from Acoes.AcaoPular import acao_pular
-from Acoes.AcaoSoltar import acao_soltar
-from Acoes.AcaoUsar import acao_usar
+        pygame.init()
+        self.relogio = pygame.time.Clock()
 
-
-class Jogo:
-    def __init__(self):
         self.jogador = Jogador(Inventario(4), Estado())
-
-        self.inventario_planejamento = Inventario(4)
-        self.estado_planejamento = Estado()
-
-        self.analisador_sintatico = analisador_sintatico()
-        self.analisador_semantico = analisador_semantico(
-            validador_movimento(),
-            validador_interacao(),
-            self.inventario_planejamento,
-            self.estado_planejamento
-        )
-
-        self.gerenciador_acoes = gerenciador_acoes()
-        self.planejador_acoes = planejador_acao(self.gerenciador_acoes)
         self.executor = Executor(self.jogador)
+        self.renderizador = renderizador_jogo(os.path.join(CODIGO_DIR, "assets"))
+        self.jogador.max_x = self.renderizador.limite_x_jogador()
+        self.gerenciador_itens = gerenciador_itens()
+        self.processador_comando = processador_comando(self.gerenciador_itens)
+
+        self.desenhar()
 
     def executar_comando(self, comando):
+        if not self.rodando:
+            return False
+
         if self.executor.executando:
             print("Aguarde a execucao das acoes terminar.")
             return False
 
-        ast_valida = self.analisar_comando(comando)
+        self.processar_eventos_janela()
+        self.renderizador.atualizar_comando(comando)
+        self.desenhar()
+
+        ast_valida, acoes_executaveis = self.processador_comando.processar(comando, self.jogador)
 
         if not ast_valida:
             return False
 
-        self.planejar_acao(ast_valida)
-        self.executar_acoes()
-        
-        self._exibir_pose()
+        self.executar_acoes(acoes_executaveis)
+        self.exibir_pose()
         return ast_valida
 
-    def analisar_comando(self, comando):
-        ast = self.analisador_sintatico.analisar(comando)
-
-        if isinstance(ast, Exception):
-            print(f"Erro sintatico ao analisar o comando: '{comando}'")
-            return False
-
-        # Antes de validar o comando, sincronizamos o estado do planejamento com o estado atual do jogador
-        self.analisador_semantico.inventario_planejamento.copiar_inventario(self.jogador.inventario)
-        self.analisador_semantico.estado_planejamento.copiar_estado(self.jogador.estado)
-
-        ast_valida = self.analisador_semantico.analisar_prefixo_valido(ast)
-
-        if isinstance(ast_valida, Exception):
-            print(f"Erro semantico ao analisar o comando: '{comando}'")
-            return False
-
-        if len(ast_valida["acao"]) == 0:
-            print("Nenhuma acao valida para executar.")
-            return False
-        
-        return ast_valida
-
-    def planejar_acao(self, ast):
-        self.planejador_acoes.planejar_acao(ast)
-
-    def executar_acoes(self):
-        acoes_executaveis = self._criar_acoes_executaveis(self.gerenciador_acoes.get_acoes())
+    def executar_acoes(self, acoes_executaveis):
         self.executor.carregar_acoes(acoes_executaveis)
-        self.executor.executar_todas()
 
-    def _criar_acoes_executaveis(self, acoes_planejadas):
-        acoes_executaveis = []
+        while self.executor.executando and self.rodando:
+            self.processar_eventos_janela()
+            self.executor.atualizar()
+            self.desenhar()
+            self.relogio.tick(self.fps)
 
-        for acao in acoes_planejadas:
-            if acao.tipo == "movimento":
-                acoes_executaveis.append(self._criar_movimento(acao))
-            elif acao.tipo == "interacao":
-                acoes_executaveis.append(self._criar_interacao(acao))
-            else:
-                raise Exception(f"Tipo de acao desconhecido: {acao.tipo}")
+    def ler_comando(self):
+        while self.rodando:
+            comando = self.entrada.ler_entrada()
+            texto_digitado = getattr(self.entrada, "comando_digitado", None)
 
-        return acoes_executaveis
+            if texto_digitado is not None:
+                self.renderizador.atualizar_comando(texto_digitado)
 
-    def _criar_movimento(self, acao):
-        if acao.acao == "anda":
-            return acao_andar(acao.adicional)
-        if acao.acao == "pula":
-            return acao_pular(acao.adicional)
-        if acao.acao == "agacha":
-            return acao_agachar()
-        if acao.acao == "levanta":
-            return acao_levantar()
+            if comando is not None:
+                self.renderizador.atualizar_comando(comando)
+                self.desenhar()
+                return comando
 
-        raise Exception(f"Movimento desconhecido: {acao.acao}")
+            if getattr(self.entrada, "finalizado", False):
+                self.rodando = False
+                return None
 
-    def _criar_interacao(self, acao):
-        if acao.acao == "coleta":
-            return acao_coletar(acao.adicional)
-        if acao.acao == "solta":
-            return acao_soltar(acao.adicional)
-        if acao.acao == "usa":
-            return acao_usar(acao.adicional)
+            self.desenhar()
+            self.relogio.tick(self.fps)
 
-        raise Exception(f"Interacao desconhecida: {acao.acao}")
+        return None
 
-    def _exibir_pose(self):
+    def desenhar(self):
+        self.renderizador.desenhar(self.jogador, self.gerenciador_itens.obter_itens_visiveis())
+
+    def encerrar(self):
+        pygame.quit()
+
+    def processar_eventos_janela(self):
+        self.rodando = self.renderizador.processar_eventos_janela()
+
+    def exibir_pose(self):
         print(f"Jogador: x={self.jogador.x}, y={self.jogador.y}, estado={self.jogador.estado.obter_estado()}")
         print(f"Inventario: {self.jogador.inventario.slots}")
 
 
 if __name__ == "__main__":
-    jogo = Jogo()
     ger_modo = gerenciador_modo()
     modo = ger_modo.set_modo()
 
     saidaParser = JsonOutputParser()
-    path_saida = "Data/astResultado.json"
+    path_saida = "Codigo/Data/astResultado.json"
     JsonResetFile().resetar(path_saida)
 
     if modo == 1:
         entradaParser = TextoInputParser()
-        entrada = entradaParser.ler_entrada("Data/entrada.txt")
+        entrada = entradaParser.ler_entrada("Codigo/Data/entrada.txt")
         entrada_m_arquivo = entrada_modo_arquivo(entrada.splitlines())
-        
-        comando = entrada_m_arquivo.ler_entrada()
 
-        while comando is not None:
-            ast_valida = jogo.executar_comando(comando)
-
-            if not ast_valida:
-                print(f"Erro ao analisar o comando: '{comando}'")
-                break
-
-            saidaParser.salvar_saida(path_saida, ast_valida)
-            comando = entrada_m_arquivo.ler_entrada()
-
-        print("Encerrando o programa.")
+        jogo = jogo(entrada_m_arquivo)
     elif modo == 2:
-        entrada_m_comando = entrada_modo_comando()
-        while True:
-            comando = entrada_m_comando.ler_entrada()
+        entrada_m_pygame = entrada_modo_pygame()
 
-            if comando is None:
-                print("Encerrando o programa.")
-                break
+        jogo = jogo(entrada_m_pygame)
 
-            ast_valida = jogo.executar_comando(comando)
+    while jogo.rodando:
+        comando = jogo.ler_comando()
 
-            if not ast_valida:
-                print(f"Erro ao analisar o comando: '{comando}'")
-                continue
+        if comando is None:
+            print("Encerrando o programa.")
+            break
 
-            saidaParser.salvar_saida(path_saida, ast_valida)
-  
+        ast_valida = jogo.executar_comando(comando)
+
+        if not ast_valida:
+            print(f"Erro ao analisar o comando: '{comando}'")
+            continue
+
+        saidaParser.salvar_saida(path_saida, ast_valida)
+
+    jogo.encerrar()

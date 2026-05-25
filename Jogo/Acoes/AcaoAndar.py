@@ -12,7 +12,7 @@ class acao_andar(I_acao):
 
     def iniciar(self, executor):
         executor.jogador.estado.atualizar_estado("Andando")
-        executor.jogador.vel_x = self.velocidade
+        executor.jogador.vel_x = self.velocidade * executor.jogador.direcao_horizontal()
         executor.jogador.vel_y = 0
     
     def atualizar(self, executor):

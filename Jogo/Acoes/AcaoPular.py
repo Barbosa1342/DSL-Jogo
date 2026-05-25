@@ -6,9 +6,9 @@ class acao_pular(I_acao):
         self.frames = 0
 
         if intensidade == "pouco":
-            self.duracao = 30
+            self.duracao = 45
         elif intensidade == "muito":
-            self.duracao = 60
+            self.duracao = 90
 
     def iniciar(self, executor):
         executor.jogador.estado.atualizar_estado("Pulando")
@@ -17,6 +17,9 @@ class acao_pular(I_acao):
     
     def atualizar(self, executor):
         self.frames += 1
+
+        if self.frames > int(self.duracao / 2):
+            executor.jogador.vel_y = -self.velocidade
 
         if self.frames >= self.duracao:
             self.finalizar(executor)

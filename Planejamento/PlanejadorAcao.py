@@ -11,7 +11,13 @@ class planejador_acao:
             if acao["tipo"] == "movimento":
                 acao_plan = movimento_planejado(acao["acao"], acao["intensidade"])
             elif acao["tipo"] == "interacao":
-                acao_plan = interacao_planejada(acao["acao"], acao["num_slot"])
+                adicional = acao["num_slot"]
+                if acao["acao"] == "coleta":
+                    adicional = {
+                        "num_slot": acao["num_slot"],
+                        "item_nome": acao["item_nome"]
+                    }
+                acao_plan = interacao_planejada(acao["acao"], adicional)
             else:
                 raise Exception(f"Tipo de ação desconhecido: {acao['tipo']}")
 
