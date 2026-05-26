@@ -1,4 +1,4 @@
-from Codigo.Jogo.Acoes.IAcao import I_acao
+from Jogo.Acoes.IAcao import I_acao
 
 class acao_andar(I_acao):
     def __init__(self, intensidade):

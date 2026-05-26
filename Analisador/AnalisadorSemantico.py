@@ -1,10 +1,9 @@
-from Codigo.Analisador.ValidadorInteracao import validador_interacao
-from Codigo.Analisador.ValidadorMovimento import validador_movimento
-from Codigo.Items.GerenciadorItens import gerenciador_itens
-from Codigo.Jogo.Estado import Estado
-from Codigo.Jogo.Inventario import Inventario
-from Codigo.Jogo.Jogador import Jogador
-
+from Analisador.ValidadorInteracao import validador_interacao
+from Analisador.ValidadorMovimento import validador_movimento
+from Items.GerenciadorItens import gerenciador_itens
+from Jogo.Estado import Estado
+from Jogo.Inventario import Inventario
+from Jogo.Jogador import Jogador
 
 class analisador_semantico():
     def __init__(self, gerenciador_itens_mundo=None):

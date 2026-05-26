@@ -1,4 +1,4 @@
-from Codigo.Utilidade.calculaDistancia import calcula_distancia
+from Utilidade.calculaDistancia import calcula_distancia
 
 class validador_interacao():
     def validar_coletar(self, gerenciador_itens, jogador, num_slot):

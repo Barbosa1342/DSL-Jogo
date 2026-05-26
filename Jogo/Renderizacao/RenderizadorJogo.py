@@ -1,7 +1,6 @@
 import pygame
 
-from Codigo.Jogo.Renderizacao.ProcessaSprite import carregar_sprites_item, carregar_sprites_jogador
-
+from Jogo.Renderizacao.ProcessaSprite import carregar_sprites_item, carregar_sprites_jogador
 
 class renderizador_jogo:
     def __init__(self, caminho_assets, largura=800, altura=480, escala_jogador=4):

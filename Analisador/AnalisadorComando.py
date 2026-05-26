@@ -1,5 +1,6 @@
-from Codigo.Analisador.AnalisadorSintatico import analisador_sintatico
-from Codigo.Analisador.AnalisadorSemantico import analisador_semantico
+from Analisador.AnalisadorSintatico import analisador_sintatico
+from Analisador.AnalisadorSemantico import analisador_semantico
+
 class analisador_comando():
     def __init__(self, gerenciador_itens):
         self.analisador_sintatico = analisador_sintatico()

@@ -1,11 +1,11 @@
-from Codigo.Jogo.Acoes.AcaoAgachar import acao_agachar
-from Codigo.Jogo.Acoes.AcaoAndar import acao_andar
-from Codigo.Jogo.Acoes.AcaoColetar import acao_coletar
-from Codigo.Jogo.Acoes.AcaoLevantar import acao_levantar
-from Codigo.Jogo.Acoes.AcaoPular import acao_pular
-from Codigo.Jogo.Acoes.AcaoSoltar import acao_soltar
-from Codigo.Jogo.Acoes.AcaoUsar import acao_usar
-from Codigo.Jogo.Acoes.AcaoVirar import acao_virar
+from Jogo.Acoes.AcaoAgachar import acao_agachar
+from Jogo.Acoes.AcaoAndar import acao_andar
+from Jogo.Acoes.AcaoColetar import acao_coletar
+from Jogo.Acoes.AcaoLevantar import acao_levantar
+from Jogo.Acoes.AcaoPular import acao_pular
+from Jogo.Acoes.AcaoSoltar import acao_soltar
+from Jogo.Acoes.AcaoUsar import acao_usar
+from Jogo.Acoes.AcaoVirar import acao_virar
 
 def criar_acoes_executaveis(acoes_planejadas, gerenciador_itens):
     acoes_executaveis = []

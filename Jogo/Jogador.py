@@ -1,5 +1,5 @@
-from Codigo.Jogo.Inventario import Inventario
-from Codigo.Jogo.Estado import Estado
+from Jogo.Inventario import Inventario
+from Jogo.Estado import Estado
 
 class Jogador:
     def __init__(self, inventario : Inventario, estado : Estado):

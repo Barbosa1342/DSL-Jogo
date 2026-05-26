@@ -4,70 +4,8 @@
         "acao": [
             {
                 "tipo": "movimento",
-                "acao": "anda",
-                "intensidade": "pouco"
-            }
-        ]
-    },
-    {
-        "tipo": "comando",
-        "acao": [
-            {
-                "tipo": "interacao",
-                "acao": "coleta",
-                "num_slot": 1,
-                "item_nome": "Chave Prata"
-            }
-        ]
-    },
-    {
-        "tipo": "comando",
-        "acao": [
-            {
-                "tipo": "movimento",
-                "acao": "anda",
-                "intensidade": "muito"
-            }
-        ]
-    },
-    {
-        "tipo": "comando",
-        "acao": [
-            {
-                "tipo": "movimento",
-                "acao": "anda",
-                "intensidade": "pouco"
-            }
-        ]
-    },
-    {
-        "tipo": "comando",
-        "acao": [
-            {
-                "tipo": "interacao",
-                "acao": "coleta",
-                "num_slot": 2,
-                "item_nome": "Chave Dourada"
-            }
-        ]
-    },
-    {
-        "tipo": "comando",
-        "acao": [
-            {
-                "tipo": "interacao",
-                "acao": "usa",
-                "num_slot": 1
-            }
-        ]
-    },
-    {
-        "tipo": "comando",
-        "acao": [
-            {
-                "tipo": "interacao",
-                "acao": "solta",
-                "num_slot": 2
+                "acao": "agacha",
+                "intensidade": ""
             }
         ]
     }

@@ -1,8 +1,8 @@
-from Codigo.Jogo.Acoes.AcoesExecutaveis import criar_acoes_executaveis
+from Jogo.Acoes.AcoesExecutaveis import criar_acoes_executaveis
 
-from Codigo.Planejamento.GerenciadorAcoes import gerenciador_acoes
-from Codigo.Planejamento.PlanejadorAcao import planejador_acao
-from Codigo.Analisador.AnalisadorComando import analisador_comando
+from Planejamento.GerenciadorAcoes import gerenciador_acoes
+from Planejamento.PlanejadorAcao import planejador_acao
+from Analisador.AnalisadorComando import analisador_comando
 
 class processador_comando:
     def __init__(self, gerenciador_itens):

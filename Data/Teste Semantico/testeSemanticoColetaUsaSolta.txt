@@ -1,0 +1,4 @@
+Jogador anda pouco
+Jogador coleta 1
+Jogador usa 1
+Jogador solta 1

@@ -1,0 +1,100 @@
+JOGADOR anda muito
+jogador pula pouco
+Jogador ANDA muito
+Jogador PULA pouco
+Jogador AGACHA
+Jogador LEVANTA
+Jogador VIRA
+Jogador USA 1
+Jogador COLETA 2
+Jogador SOLTA 3
+Jogador usa O 1
+Jogador coleta PARA O 2
+Jogador solta DO 3
+Jogador anda MUITO
+Jogador pula POUCO
+Jogador anda muito E pula pouco
+Jogador Agacha
+Jogador Levanta
+Jogador Vira
+Jogador Usa O 2
+Jogador
+Jogador anda
+Jogador pula
+Jogador usa
+Jogador coleta
+Jogador solta
+Jogador coleta para
+Jogador solta do
+Jogador usa o
+Jogador e pula muito
+Jogador anda muito e
+Jogador agacha e levanta e
+Jogador anda muito pula pouco
+Jogador agacha levanta
+Jogador vira usa 2
+Jogador usa 1 solta 2
+Jogador anda muito e e pula pouco
+Jogador e agacha e levanta
+anda muito e pula pouco
+agacha
+Jogador corre muito
+Jogador caminha pouco
+Jogador deita
+Jogador senta
+Jogador atira 1
+Jogador abre o 2
+Jogador joga o 3
+Jogador pega 4
+Jogador anda bastante
+Jogador pula demais
+Jogador anda devagar
+Jogador pula alto
+Jogador vira para a esquerda
+Jogador vira de costas
+Jogador usa a mochila
+Jogador coleta o item
+Jogador solta a arma
+Jogador anda muito com pressa
+Jogador pula pouco e cai
+Jogador agacha e chora
+Jogador levanta e dança
+Jogador olha para 1
+Jogador examina o 2
+Jogador guarda do 3
+Jogador equipa 4
+Jogador usa 0
+Jogador usa 5
+Jogador coleta 6
+Jogador solta 9
+Jogador usa o 10
+Jogador coleta para o 42
+Jogador solta do 0
+Jogador usa o 5
+Jogador coleta para o 7
+Jogador solta do 8
+Jogador usa -1
+Jogador coleta para o 0
+Jogador solta do 6
+Jogador usa 8 e pula muito
+Jogador agacha e solta do 5
+Jogador usa para o 1
+Jogador usa do 2
+Jogador coleta o 3
+Jogador coleta do 4
+Jogador solta para o 1
+Jogador coleta para 2
+Jogador solta de o 3
+Jogador usa para 4
+Jogador solta para 1
+Jogador coleta o para o 2
+Jogador solta o do 3
+Jogador usa do o 4
+Jogador coleta do para o 1
+Jogador solta para do 2
+Jogador usa para do o 3
+Jogador anda muito para o 1
+Jogador pula pouco do 2
+Jogador agacha o 3
+Jogador levanta para o 4
+Jogador vira do 1

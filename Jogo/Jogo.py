@@ -1,33 +1,27 @@
 import os
 import sys
-
 import pygame
 
-CODIGO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJETO_DIR = os.path.dirname(CODIGO_DIR)
 JOGO_DIR = os.path.dirname(os.path.abspath(__file__))
-
-if CODIGO_DIR not in sys.path:
-    sys.path.append(CODIGO_DIR)
+PROJETO_DIR = os.path.dirname(JOGO_DIR)
 
 if PROJETO_DIR not in sys.path:
-    sys.path.append(PROJETO_DIR)
+    sys.path.insert(0, PROJETO_DIR)
 
-if JOGO_DIR not in sys.path:
-    sys.path.append(JOGO_DIR)
+from Entrada.GerenciadorModo import gerenciador_modo
+from Entrada.IEntradaModo import entrada_modo_arquivo, entrada_modo_pygame
+from Utilidade.entradaSaidaParser import JsonOutputParser, JsonResetFile, TextoInputParser
 
-from Codigo.Entrada.GerenciadorModo import gerenciador_modo
-from Codigo.Entrada.IEntradaModo import entrada_modo_arquivo, entrada_modo_pygame
-from Codigo.Utilidade.entradaSaidaParser import JsonOutputParser, JsonResetFile, TextoInputParser
+from Items.GerenciadorItens import gerenciador_itens
+from Items.Item import Item
 
-from Codigo.Jogo.Estado import Estado
-from Codigo.Jogo.Executor import Executor
-from Codigo.Jogo.Inventario import Inventario
-from Codigo.Jogo.Jogador import Jogador
-from Codigo.Jogo.Acoes.ProcessadorComando import processador_comando
-from Codigo.Jogo.Renderizacao.RenderizadorJogo import renderizador_jogo
-from Codigo.Items.GerenciadorItens import gerenciador_itens
-from Codigo.Items.Item import Item
+from Jogo.Estado import Estado
+from Jogo.Executor import Executor
+from Jogo.Inventario import Inventario
+from Jogo.Jogador import Jogador
+from Jogo.Acoes.ProcessadorComando import processador_comando
+from Jogo.Renderizacao.RenderizadorJogo import renderizador_jogo
+
 
 class jogo:
     def __init__(self, entrada):
@@ -40,7 +34,7 @@ class jogo:
 
         self.jogador = Jogador(Inventario(4), Estado())
         self.executor = Executor(self.jogador)
-        self.renderizador = renderizador_jogo(os.path.join(CODIGO_DIR, "assets"))
+        self.renderizador = renderizador_jogo(os.path.join(PROJETO_DIR, "assets"))
         self.jogador.max_x = self.renderizador.limite_x_jogador()
         self.gerenciador_itens = gerenciador_itens()
         self.processador_comando = processador_comando(self.gerenciador_itens)
@@ -110,7 +104,12 @@ class jogo:
 
     def exibir_pose(self):
         print(f"Jogador: x={self.jogador.x}, y={self.jogador.y}, estado={self.jogador.estado.obter_estado()}")
-        print(f"Inventario: {self.jogador.inventario.slots}")
+
+        print(f"Inventario: ")
+
+        for item in self.jogador.inventario.slots:
+            if item is not None:
+                print(item.nome)
 
 
 if __name__ == "__main__":
@@ -118,12 +117,12 @@ if __name__ == "__main__":
     modo = ger_modo.set_modo()
 
     saidaParser = JsonOutputParser()
-    path_saida = "Codigo/Data/astResultado.json"
+    path_saida = os.path.join(PROJETO_DIR, "Data", "astResultado.json")
     JsonResetFile().resetar(path_saida)
 
     if modo == 1:
         entradaParser = TextoInputParser()
-        entrada = entradaParser.ler_entrada("Codigo/Data/entrada.txt")
+        entrada = entradaParser.ler_entrada(os.path.join(PROJETO_DIR, "Data", "Teste Semantico", "testeSemanticoAnda.txt"))
         entrada_m_arquivo = entrada_modo_arquivo(entrada.splitlines())
 
         jogo = jogo(entrada_m_arquivo)

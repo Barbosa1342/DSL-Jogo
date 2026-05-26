@@ -1,0 +1,4 @@
+Jogador anda pouco
+Jogador coleta 1
+Jogador anda pouco e anda muito
+Jogador coleta 1

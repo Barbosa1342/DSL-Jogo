@@ -1,4 +1,4 @@
-from Codigo.Jogo.Acoes.IAcao import I_acao
+from Jogo.Acoes.IAcao import I_acao
 
 class acao_coletar(I_acao):
     def __init__(self, num_slot, item):
@@ -23,4 +23,3 @@ class acao_coletar(I_acao):
 
     def finalizar(self, executor):
         executor.jogador.estado.atualizar_estado("Levantado")
-

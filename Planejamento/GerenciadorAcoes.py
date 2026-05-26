@@ -1,4 +1,4 @@
-from Codigo.Planejamento.AcaoPlanejada import acao_planejada
+from Planejamento.AcaoPlanejada import acao_planejada
 
 class gerenciador_acoes:
     def __init__(self):

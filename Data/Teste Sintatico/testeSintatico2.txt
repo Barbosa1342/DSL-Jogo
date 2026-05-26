@@ -1,0 +1,25 @@
+Jogador anda muito e pula pouco
+Jogador agacha e levanta
+Jogador vira e usa 3
+Jogador coleta para o 1 e solta do 4
+Jogador usa o 2 e anda pouco
+Jogador pula muito e solta 1
+Jogador agacha e coleta 2
+Jogador vira e vira
+Jogador solta do 3 e levanta
+Jogador anda pouco e usa o 4
+Jogador coleta 4 e solta o 2
+Jogador pula pouco e agacha
+Jogador usa 1 e vira
+Jogador solta o 3 e anda muito
+Jogador coleta para o 2 e pula muito
+Jogador levanta e usa o 1
+Jogador agacha e solta do 2
+Jogador anda muito e vira
+Jogador usa 4 e coleta 3
+Jogador solta 2 e pula pouco
+Jogador coleta para o 4 e levanta
+Jogador vira e solta o 1
+Jogador anda pouco e agacha
+Jogador usa o 3 e solta do 4
+Jogador pula muito e coleta para o 3

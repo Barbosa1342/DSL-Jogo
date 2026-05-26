@@ -1,0 +1,3 @@
+Jogador anda pouco e pula muito e agacha
+Jogador levanta
+Jogador anda muito 

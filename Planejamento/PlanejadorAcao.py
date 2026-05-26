@@ -1,4 +1,4 @@
-from Codigo.Planejamento.AcaoPlanejada import movimento_planejado, interacao_planejada
+from Planejamento.AcaoPlanejada import movimento_planejado, interacao_planejada
 
 class planejador_acao:
     def __init__(self, gerenciador_acoes):

@@ -1,0 +1,35 @@
+Jogador anda pouco
+Jogador anda muito
+Jogador pula pouco
+Jogador pula muito
+Jogador agacha
+Jogador levanta
+Jogador vira
+Jogador usa 1
+Jogador usa 2
+Jogador usa 3
+Jogador usa 4
+Jogador usa o 1
+Jogador usa o 2
+Jogador usa o 3
+Jogador usa o 4
+Jogador coleta 1
+Jogador coleta 2
+Jogador coleta 3
+Jogador coleta 4
+Jogador coleta para o 1
+Jogador coleta para o 2
+Jogador coleta para o 3
+Jogador coleta para o 4
+Jogador solta 1
+Jogador solta 2
+Jogador solta 3
+Jogador solta 4
+Jogador solta o 1
+Jogador solta o 2
+Jogador solta o 3
+Jogador solta o 4
+Jogador solta do 1
+Jogador solta do 2
+Jogador solta do 3
+Jogador solta do 4

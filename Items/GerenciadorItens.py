@@ -1,4 +1,4 @@
-from Codigo.Items.Item import Item
+from Items.Item import Item
 
 class gerenciador_itens:
     def __init__(self, inicializar=True):
